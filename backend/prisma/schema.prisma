@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  email         String          @unique
+  name          String
+  isSample      Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+
+  incomeSources IncomeSource[]
+  expenses      Expense[]
+  loans         Loan[]
+  savings       SavingsAccount[]
+  transactions  Transaction[]
+  chatMessages  ChatMessage[]
+}
+
+model IncomeSource {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label     String
+  amount    Float
+  frequency String   // "monthly" | "weekly" | "one-time"
+  createdAt DateTime @default(now())
+}
+
+model Expense {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label        String
+  category     String
+  amount       Float
+  isRecurring  Boolean  @default(true)
+  dueDay       Int?     // day of month (1-31) this expense is due, for forecast scheduling
+  createdAt    DateTime @default(now())
+}
+
+model Loan {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label            String
+  principal        Float
+  emiAmount        Float
+  interestRate     Float    // annual %, e.g. 12.5
+  remainingMonths  Int
+  dueDay           Int?
+  createdAt        DateTime @default(now())
+}
+
+model SavingsAccount {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label     String
+  balance   Float
+  type      String   // "emergency" | "general"
+  createdAt DateTime @default(now())
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        DateTime
+  amount      Float
+  description String
+  category    String?
+  createdAt   DateTime @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   // "user" | "assistant"
+  content   String
+  createdAt DateTime @default(now())
+}
