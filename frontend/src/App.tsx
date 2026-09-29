@@ -1,46 +1,38 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import { Toaster } from "sonner";
-import { Sidebar } from "./components/Sidebar";
-import { AppBootstrap } from "./components/AppBootstrap";
-import { PageTransition } from "./components/PageTransition";
-import { Dashboard } from "./pages/Dashboard";
-import { Onboarding } from "./pages/Onboarding";
-import { Forecast } from "./pages/Forecast";
-import { Afford } from "./pages/Afford";
-import { WhatIf } from "./pages/WhatIf";
-import { Chat } from "./pages/Chat";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { AppLayout } from './components/AppLayout'
 
-function AnimatedRoutes() {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Dashboard /></PageTransition>} />
-        <Route path="/onboarding" element={<PageTransition><Onboarding /></PageTransition>} />
-        <Route path="/forecast" element={<PageTransition><Forecast /></PageTransition>} />
-        <Route path="/afford" element={<PageTransition><Afford /></PageTransition>} />
-        <Route path="/whatif" element={<PageTransition><WhatIf /></PageTransition>} />
-        <Route path="/chat" element={<PageTransition><Chat /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
+import Landing from './pages/Landing'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Consent from './pages/Consent'
+import Onboarding from './pages/Onboarding'
+import Dashboard from './pages/Dashboard'
+import Profile from './pages/Profile'
+import Simulate from './pages/Simulate'
+import Plan from './pages/Plan'
+import Mentor from './pages/Mentor'
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-      <Toaster richColors position="top-right" theme="system" />
-      <AppBootstrap>
-        <div className="bg-mesh flex min-h-screen bg-slate-50 dark:bg-slate-950">
-          <Sidebar />
-          <main className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
-            <AnimatedRoutes />
-          </main>
-        </div>
-      </AppBootstrap>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/consent" element={<ProtectedRoute><Consent /></ProtectedRoute>} />
+          <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+          <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/simulate" element={<Simulate />} />
+            <Route path="/plan" element={<Plan />} />
+            <Route path="/mentor" element={<Mentor />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
-  );
+  )
 }
-
-export default App;
