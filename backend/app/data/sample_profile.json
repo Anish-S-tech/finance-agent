@@ -1,0 +1,43 @@
+{
+  "_comment": "Fictional demo persona. Calendar dates are relative (due_in_days) so the demo always looks current.",
+  "profile": {
+    "name": "Aarav",
+    "age": 29,
+    "occupation": "Software analyst",
+    "salary_day": 1,
+    "num_dependents": 1
+  },
+  "income": [
+    { "label": "Salary", "amount": 95000, "frequency": "monthly", "pay_day": 1, "is_primary": true }
+  ],
+  "expenses": [
+    { "label": "Rent", "category": "housing", "amount": 22000, "frequency": "monthly", "is_essential": true },
+    { "label": "Groceries", "category": "food", "amount": 9000, "frequency": "monthly", "is_essential": true },
+    { "label": "Electricity & water", "category": "utilities", "amount": 3500, "frequency": "monthly", "is_essential": true },
+    { "label": "Phone & internet", "category": "utilities", "amount": 1200, "frequency": "monthly", "is_essential": true },
+    { "label": "Fuel & commute", "category": "transport", "amount": 4000, "frequency": "monthly", "is_essential": true },
+    { "label": "Parents' support", "category": "other", "amount": 5000, "frequency": "monthly", "is_essential": true },
+    { "label": "Dining out & delivery", "category": "food", "amount": 8000, "frequency": "monthly", "is_essential": false },
+    { "label": "Shopping", "category": "shopping", "amount": 9000, "frequency": "monthly", "is_essential": false },
+    { "label": "Subscriptions & outings", "category": "entertainment", "amount": 2500, "frequency": "monthly", "is_essential": false },
+    { "label": "Gym", "category": "health", "amount": 1500, "frequency": "monthly", "is_essential": false }
+  ],
+  "debts": [
+    { "label": "Car loan", "debt_type": "car", "outstanding": 320000, "interest_rate": 9.5, "emi": 10500, "emi_day": 5, "remaining_months": 34 },
+    { "label": "Credit card", "debt_type": "credit_card", "outstanding": 48000, "interest_rate": 42, "emi": 2400, "emi_day": 20, "credit_limit": 100000 }
+  ],
+  "goals": [
+    { "label": "Europe trip", "target_amount": 250000, "current_amount": 40000, "target_in_months": 14, "priority": 2, "monthly_contribution": 5000 },
+    { "label": "Home down payment", "target_amount": 1000000, "current_amount": 150000, "target_in_months": 48, "priority": 1, "monthly_contribution": 8000 }
+  ],
+  "savings": {
+    "current_savings": 60000,
+    "emergency_fund": 30000,
+    "investments": 120000
+  },
+  "calendar": [
+    { "event_type": "other", "label": "Laptop repair", "amount": 8000, "due_in_days": 10 },
+    { "event_type": "other", "label": "Friend's wedding gift", "amount": 10000, "due_in_days": 24 },
+    { "event_type": "insurance_premium", "label": "Car insurance renewal", "amount": 14000, "due_in_days": 55 }
+  ]
+}
